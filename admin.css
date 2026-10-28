@@ -1,0 +1,64 @@
+/* Estilos para el Panel de Administración */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.admin-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+}
+
+.admin-card h2 {
+    color: #2A7B9B;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+}
+
+.item {
+    background: #f8fafc;
+    border-left: 4px solid #2A7B9B;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 0 6px 6px 0;
+}
+
+.item b {
+    color: #1e293b;
+}
+
+.item small {
+    color: #64748b;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.item p {
+    margin: 5px 0 0 0;
+    color: #334155;
+}
+
+.rol {
+    display: inline-block;
+    background: #e2e8f0;
+    color: #334155;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 6px;
+    text-transform: uppercase;
+}
+
+.item .rol {
+    background: #dbeafe;
+    color: #1e40af;
+}

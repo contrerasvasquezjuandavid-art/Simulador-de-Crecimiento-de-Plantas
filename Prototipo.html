@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipo | Simulador de Crecimiento de Plantas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- MENÚ -->
+    <nav>
+        <ul>
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="QuiénesSomos.html">Quiénes Somos</a></li>
+            <li><a href="antecedentes.html">Antecedentes</a></li>
+            <li><a href="Fundamentos.html">Fundamentos</a></li>
+            <li><a href="Prototipo.html">Prototipo</a></li>
+            <li><a href="Noticias.php">Noticias</a></li>
+            <li><a href="foro.php">Foro</a></li>
+            <li><a href="Galería.html">Galería</a></li>
+            <li><a href="Contacto.php">Contacto</a></li>
+            <li><a href="Políticas.html">Políticas</a></li>
+        </ul>
+    </nav>
+
+    <main>
+
+        <div class="tarjeta prototipo-pagina">
+
+            <!-- ENCABEZADO -->
+            <div class="prototipo-header">
+ 
+
+                <div>
+                    <span class="prototipo-etiqueta">
+                        SIMULADOR INTERACTIVO
+                    </span>
+
+                    <h1>
+                        Simulador de Crecimiento de Plantas
+                    </h1>
+
+                    <p>
+                        Modifica las condiciones ambientales y observa cómo
+                        afectan el desarrollo de la planta en tiempo real.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- ESTADO GENERAL -->
+            <div class="estado-general">
+
+                <div class="estado-item">
+                    
+                    <div>
+                        <small>Planta</small>
+                        <strong id="estado-planta">Tomate</strong>
+                    </div>
+                </div>
+
+                <div class="estado-item">
+                   
+                    <div>
+                        <small>Día</small>
+                        <strong id="lbl-day">1</strong>
+                    </div>
+                </div>
+
+                <div class="estado-item">
+                  
+                    <div>
+                        <small>Hora</small>
+                        <strong id="lbl-hour">12:00</strong>
+                    </div>
+                </div>
+
+                <div class="estado-item">
+                   
+                    <div>
+                        <small>Altura</small>
+                        <strong id="val-height">2.0 cm</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- SIMULADOR -->
+            <div class="grid-simulador">
+
+                <!-- PANEL IZQUIERDO -->
+                <section class="panel-control">
+
+                    <div class="panel-titulo">
+                        
+
+                        <div>
+                            <h2>Configuración</h2>
+                            <p>Ajusta las condiciones ambientales.</p>
+                        </div>
+                    </div>
+
+
+                    <!-- PLANTA -->
+                    <div class="control-group">
+
+                        <label for="select-plant">
+                             Especie vegetal
+                        </label>
+
+                        <select id="select-plant" onchange="resetSimulation()">
+
+                            <option value="tomate">
+                                 Tomate
+                            </option>
+
+                            <option value="frijol">
+                                 Frijol
+                            </option>
+
+                            <option value="maiz">
+                                 Maíz
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- LUZ -->
+                    <div class="control-group">
+
+                        <div class="control-label">
+
+                            <label for="input-sun">
+                                 Luz solar
+                            </label>
+
+                            <span id="val-sun">
+                                80%
+                            </span>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="input-sun"
+                            min="0"
+                            max="100"
+                            value="80"
+                            oninput="updateControls()"
+                        >
+
+                        <div class="rango-info">
+                            <span>Baja</span>
+                            <span>Óptima</span>
+                            <span>Alta</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- TEMPERATURA -->
+                    <div class="control-group">
+
+                        <div class="control-label">
+
+                            <label for="input-temp">
+                                 Temperatura
+                            </label>
+
+                            <span id="val-temp">
+                                24°C
+                            </span>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="input-temp"
+                            min="5"
+                            max="45"
+                            value="24"
+                            oninput="updateControls()"
+                        >
+
+                        <div class="rango-info">
+                            <span>5°C</span>
+                            <span>25°C</span>
+                            <span>45°C</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- HUMEDAD -->
+                    <div class="control-group">
+
+                        <div class="control-label">
+
+                            <label for="input-humidity">
+                                 Humedad ambiental
+                            </label>
+
+                            <span id="val-humidity">
+                                60%
+                            </span>
+
+                        </div>
+
+                        <input
+                            type="range"
+                            id="input-humidity"
+                            min="10"
+                            max="100"
+                            value="60"
+                            oninput="updateControls()"
+                        >
+
+                        <div class="rango-info">
+                            <span>Seco</span>
+                            <span>Ideal</span>
+                            <span>Húmedo</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACCIONES -->
+                    <div class="acciones-simulador">
+
+                        <button
+                            onclick="applyWater()"
+                            class="btn-accion btn-agua">
+                             Regar
+                        </button>
+
+                        <button
+                            onclick="applyFertilizer()"
+                            class="btn-accion btn-fertilizante">
+                            Fertilizar
+                        </button>
+
+                        <button
+                            id="btn-play"
+                            onclick="togglePlay()"
+                            class="btn-accion btn-pausa">
+                             Pausar
+                        </button>
+
+                        <button
+                            onclick="resetSimulation()"
+                            class="btn-accion btn-reset">
+                            Reiniciar
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!-- PANEL DERECHO -->
+                <section class="visor-panel">
+
+                    <div class="visor-header">
+
+                        <div>
+                            <span>MONITOR DEL CULTIVO</span>
+                            <h2>Vista del crecimiento</h2>
+                        </div>
+
+                        <div
+                            id="estado-indicador"
+                            class="estado-indicador activo">
+                             ACTIVO
+                        </div>
+
+                    </div>
+
+
+                    <!-- CANVAS -->
+                    <div class="visor-canvas">
+
+                        <canvas
+                            id="sim-canvas"
+                            width="500"
+                            height="330">
+                        </canvas>
+
+                    </div>
+
+
+                    <!-- INDICADORES -->
+                    <div class="indicadores">
+
+                        <div class="indicador">
+
+                            <div class="indicador-top">
+                                <span> Agua</span>
+                                <strong id="water-value">60%</strong>
+                            </div>
+
+                            <div class="barra">
+                                <div
+                                    id="water-bar"
+                                    class="barra-progreso agua"
+                                    style="width:60%;">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="indicador">
+
+                            <div class="indicador-top">
+                                <span> Nutrientes</span>
+                                <strong id="nutrient-value">70%</strong>
+                            </div>
+
+                            <div class="barra">
+                                <div
+                                    id="nutrient-bar"
+                                    class="barra-progreso nutrientes"
+                                    style="width:70%;">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="indicador">
+
+                            <div class="indicador-top">
+                                <span> Salud</span>
+                                <strong id="health-value">100%</strong>
+                            </div>
+
+                            <div class="barra">
+                                <div
+                                    id="health-bar"
+                                    class="barra-progreso salud"
+                                    style="width:100%;">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+            <!-- DIAGNÓSTICO -->
+            <div
+                id="feedback-box"
+                class="caja-diagnostico estado-optimo">
+
+                <div class="diagnostico-icono">
+                    
+                </div>
+
+                <div>
+
+                    <strong>
+                        Estado del cultivo
+                    </strong>
+
+                    <p id="feedback-text">
+                        Las condiciones actuales son favorables
+                        para el crecimiento de la planta.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- INFORMACIÓN -->
+            <div class="info-simulador">
+
+                <div class="info-card">
+               
+                    <strong>Luz</strong>
+                    <p>
+                        Influye directamente en la fotosíntesis.
+                    </p>
+                </div>
+
+                <div class="info-card">
+             
+                    <strong>Temperatura</strong>
+                    <p>
+                        Afecta el ritmo metabólico de la planta.
+                    </p>
+                </div>
+
+                <div class="info-card">
+           
+                    <strong>Agua</strong>
+                    <p>
+                        Es necesaria para mantener la planta hidratada.
+                    </p>
+                </div>
+
+                <div class="info-card">
+               
+                    <strong>Nutrientes</strong>
+                    <p>
+                        Permiten un desarrollo adecuado.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- VOLVER -->
+            <div class="centrar">
+
+                <a
+                    href="index.php"
+                    class="btn-inicio">
+                    ← Volver al inicio
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-contenido">
+
+            <div class="footer-logos">
+
+                <img
+                    src="imagenes/image-removebg-preview.png"
+                    alt="Institución Universitaria Pascual Bravo"
+                    class="logo-footer">
+
+                <img
+                    src="imagenes/image-removebg-preview (1).png"
+                    alt="I.E. República de Uruguay"
+                    class="logo-footer">
+
+            </div>
+
+            <p>
+                © 2026 Simulador de Crecimiento de Plantas
+            </p>
+
+        </div>
+
+    </footer>
+
+
+<script>
+
+let state = {
+
+    isRunning: true,
+
+    day: 1,
+
+    hour: 12,
+
+    plantType: 'tomate',
+
+    sunlight: 80,
+
+    temperature: 24,
+
+    humidity: 60,
+
+    soilWater: 60,
+
+    soilNutrients: 70,
+
+    plantHeight: 2,
+
+    plantHealth: 100
+
+};
+
+
+const plantConfigs = {
+
+    tomate: {
+        maxH: 80,
+        growthSpeed: 0.18,
+        idealTemp: 24
+    },
+
+    frijol: {
+        maxH: 50,
+        growthSpeed: 0.25,
+        idealTemp: 23
+    },
+
+    maiz: {
+        maxH: 120,
+        growthSpeed: 0.22,
+        idealTemp: 26
+    }
+
+};
+
+
+window.onload = function () {
+
+    updateControls();
+
+    updateUI();
+
+    renderCanvas();
+
+    startLoop();
+
+};
+
+
+function updateControls() {
+
+    state.sunlight =
+        parseInt(document.getElementById('input-sun').value);
+
+    state.temperature =
+        parseInt(document.getElementById('input-temp').value);
+
+    state.humidity =
+        parseInt(document.getElementById('input-humidity').value);
+
+
+    document.getElementById('val-sun').innerText =
+        state.sunlight + '%';
+
+    document.getElementById('val-temp').innerText =
+        state.temperature + '°C';
+
+    document.getElementById('val-humidity').innerText =
+        state.humidity + '%';
+
+
+    updateUI();
+
+}
+
+
+function applyWater() {
+
+    state.soilWater =
+        Math.min(100, state.soilWater + 25);
+
+    updateUI();
+
+    renderCanvas();
+
+}
+
+
+function applyFertilizer() {
+
+    state.soilNutrients =
+        Math.min(100, state.soilNutrients + 25);
+
+    updateUI();
+
+}
+
+
+function togglePlay() {
+
+    state.isRunning = !state.isRunning;
+
+    const button =
+        document.getElementById('btn-play');
+
+    const indicator =
+        document.getElementById('estado-indicador');
+
+
+    if (state.isRunning) {
+
+        button.innerText = '⏸ Pausar';
+
+        indicator.innerText = '● ACTIVO';
+
+        indicator.classList.add('activo');
+
+        indicator.classList.remove('pausado');
+
+    } else {
+
+        button.innerText = '▶ Reanudar';
+
+        indicator.innerText = '● PAUSADO';
+
+        indicator.classList.remove('activo');
+
+        indicator.classList.add('pausado');
+
+    }
+
+}
+
+
+function resetSimulation() {
+
+    state.day = 1;
+
+    state.hour = 12;
+
+    state.plantHeight = 2;
+
+    state.plantHealth = 100;
+
+    state.soilWater = 60;
+
+    state.soilNutrients = 70;
+
+    state.plantType =
+        document.getElementById('select-plant').value;
+
+
+    state.isRunning = true;
+
+
+    document.getElementById('btn-play').innerText =
+        '⏸ Pausar';
+
+
+    document.getElementById('estado-indicador').innerText =
+        '● ACTIVO';
+
+
+    document.getElementById('estado-indicador')
+        .classList.add('activo');
+
+
+    document.getElementById('estado-indicador')
+        .classList.remove('pausado');
+
+
+    updateUI();
+
+    renderCanvas();
+
+}
+
+
+function calculateEnvironment() {
+
+    const config =
+        plantConfigs[state.plantType];
+
+
+    const tempDifference =
+        Math.abs(
+            state.temperature - config.idealTemp
+        );
+
+
+    let temperatureFactor =
+        Math.max(
+            0,
+            1 - (tempDifference / 20)
+        );
+
+
+    let lightFactor =
+        Math.max(
+            0,
+            state.sunlight / 100
+        );
+
+
+    let waterFactor =
+        state.soilWater / 100;
+
+
+    let humidityFactor =
+        state.humidity / 100;
+
+
+    let nutrientFactor =
+        state.soilNutrients / 100;
+
+
+    return (
+        temperatureFactor *
+        lightFactor *
+        waterFactor *
+        humidityFactor *
+        nutrientFactor
+    );
+
+}
+
+
+function startLoop() {
+
+    setInterval(function () {
+
+        if (!state.isRunning) {
+            return;
+        }
+
+
+        /*
+         * Cada segundo representa
+         * una hora dentro del simulador.
+         */
+
+        state.hour++;
+
+
+        if (state.hour >= 24) {
+
+            state.hour = 0;
+
+            state.day++;
+
+        }
+
+
+        /*
+         * Consumo de agua.
+         */
+
+        state.soilWater =
+            Math.max(
+                0,
+                state.soilWater - 0.20
+            );
+
+
+        /*
+         * Consumo de nutrientes.
+         */
+
+        state.soilNutrients =
+            Math.max(
+                0,
+                state.soilNutrients - 0.05
+            );
+
+
+        /*
+         * Evaluación ambiental.
+         */
+
+        const environment =
+            calculateEnvironment();
+
+
+        /*
+         * Crecimiento.
+         */
+
+        const config =
+            plantConfigs[state.plantType];
+
+
+        if (
+            environment > 0.20 &&
+            state.plantHealth > 10 &&
+            state.plantHeight < config.maxH
+        ) {
+
+            state.plantHeight +=
+                environment *
+                config.growthSpeed;
+
+        }
+
+
+        /*
+         * Salud de la planta.
+         */
+
+        if (environment > 0.55) {
+
+            state.plantHealth =
+                Math.min(
+                    100,
+                    state.plantHealth + 0.08
+                );
+
+        } else {
+
+            state.plantHealth =
+                Math.max(
+                    0,
+                    state.plantHealth - 0.15
+                );
+
+        }
+
+
+        updateUI();
+
+        renderCanvas();
+
+    }, 1000);
+
+}
+
+
+function updateUI() {
+
+    const config =
+        plantConfigs[state.plantType];
+
+
+    const plantNames = {
+
+        tomate: 'Tomate',
+
+        frijol: 'Frijol',
+
+        maiz: 'Maíz'
+
+    };
+
+
+    document.getElementById(
+        'estado-planta'
+    ).innerText =
+        plantNames[state.plantType];
+
+
+    document.getElementById(
+        'lbl-day'
+    ).innerText =
+        state.day;
+
+
+    let hour =
+        state.hour < 10
+        ? '0' + state.hour
+        : state.hour;
+
+
+    document.getElementById(
+        'lbl-hour'
+    ).innerText =
+        hour + ':00';
+
+
+    document.getElementById(
+        'val-height'
+    ).innerText =
+        state.plantHeight.toFixed(1) + ' cm';
+
+
+    /*
+     * Barras
+     */
+
+    document.getElementById(
+        'water-value'
+    ).innerText =
+        Math.round(state.soilWater) + '%';
+
+
+    document.getElementById(
+        'nutrient-value'
+    ).innerText =
+        Math.round(state.soilNutrients) + '%';
+
+
+    document.getElementById(
+        'health-value'
+    ).innerText =
+        Math.round(state.plantHealth) + '%';
+
+
+    document.getElementById(
+        'water-bar'
+    ).style.width =
+        state.soilWater + '%';
+
+
+    document.getElementById(
+        'nutrient-bar'
+    ).style.width =
+        state.soilNutrients + '%';
+
+
+    document.getElementById(
+        'health-bar'
+    ).style.width =
+        state.plantHealth + '%';
+
+
+    /*
+     * Diagnóstico
+     */
+
+    const feedbackBox =
+        document.getElementById(
+            'feedback-box'
+        );
+
+
+    const feedbackText =
+        document.getElementById(
+            'feedback-text'
+        );
+
+
+    if (state.soilWater < 20) {
+
+        feedbackBox.className =
+            'caja-diagnostico estado-alerta';
+
+        feedbackText.innerText =
+            'El nivel de agua es bajo. Se recomienda regar la planta para evitar estrés hídrico.';
+
+    }
+
+    else if (state.soilNutrients < 20) {
+
+        feedbackBox.className =
+            'caja-diagnostico estado-alerta';
+
+        feedbackText.innerText =
+            'Los nutrientes del suelo están bajos. Puedes aplicar fertilizante.';
+
+    }
+
+    else if (state.plantHealth < 50) {
+
+        feedbackBox.className =
+            'caja-diagnostico estado-peligro';
+
+        feedbackText.innerText =
+            'La planta presenta condiciones desfavorables. Revisa temperatura, luz, humedad y recursos del suelo.';
+
+    }
+
+    else if (calculateEnvironment() > 0.65) {
+
+        feedbackBox.className =
+            'caja-diagnostico estado-optimo';
+
+        feedbackText.innerText =
+            'Las condiciones ambientales son favorables para el crecimiento de la planta.';
+
+    }
+
+    else {
+
+        feedbackBox.className =
+            'caja-diagnostico estado-normal';
+
+        feedbackText.innerText =
+            'La planta está creciendo, pero algunas condiciones podrían mejorarse.';
+
+    }
+
+}
+
+
+function renderCanvas() {
+
+    const canvas =
+        document.getElementById(
+            'sim-canvas'
+        );
+
+
+    const ctx =
+        canvas.getContext('2d');
+
+
+    const w =
+        canvas.width;
+
+
+    const h =
+        canvas.height;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        w,
+        h
+    );
+
+
+    /*
+     * Día / noche
+     */
+
+    const isNight =
+        state.hour < 6 ||
+        state.hour >= 19;
+
+
+    if (isNight) {
+
+        ctx.fillStyle =
+            '#172554';
+
+    } else {
+
+        ctx.fillStyle =
+            '#bae6fd';
+
+    }
+
+
+    ctx.fillRect(
+        0,
+        0,
+        w,
+        h
+    );
+
+
+    /*
+     * Nubes
+     */
+
+    if (!isNight) {
+
+        ctx.fillStyle =
+            'rgba(255,255,255,0.75)';
+
+
+        drawCloud(
+            ctx,
+            70,
+            55
+        );
+
+
+        drawCloud(
+            ctx,
+            350,
+            80
+        );
+
+    }
+
+
+    /*
+     * Sol / luna
+     */
+
+    ctx.fillStyle =
+        isNight
+        ? '#f8fafc'
+        : '#facc15';
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        w - 55,
+        45,
+        20,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.fill();
+
+
+    /*
+     * Suelo
+     */
+
+    ctx.fillStyle =
+        '#7c4a21';
+
+
+    ctx.fillRect(
+        0,
+        h - 60,
+        w,
+        60
+    );
+
+
+    /*
+     * Pasto
+     */
+
+    ctx.fillStyle =
+        '#4d7c0f';
+
+
+    ctx.fillRect(
+        0,
+        h - 65,
+        w,
+        10
+    );
+
+
+    /*
+     * Planta
+     */
+
+    const stemX =
+        w / 2;
+
+
+    const bottom =
+        h - 65;
+
+
+    const stemHeight =
+        Math.min(
+            220,
+            state.plantHeight * 2.4
+        );
+
+
+    /*
+     * Tallo
+     */
+
+    ctx.strokeStyle =
+        '#15803d';
+
+
+    ctx.lineWidth =
+        6;
+
+
+    ctx.lineCap =
+        'round';
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        stemX,
+        bottom
+    );
+
+
+    ctx.lineTo(
+        stemX,
+        bottom - stemHeight
+    );
+
+
+    ctx.stroke();
+
+
+    /*
+     * Hojas
+     */
+
+    const numberLeaves =
+        Math.max(
+            1,
+            Math.floor(
+                stemHeight / 25
+            )
+        );
+
+
+    for (
+        let i = 1;
+        i <= numberLeaves;
+        i++
+    ) {
+
+        const y =
+            bottom -
+            (i * 25);
+
+
+        const leafSize =
+            15;
+
+
+        ctx.fillStyle =
+            i % 2 === 0
+            ? '#16a34a'
+            : '#22c55e';
+
+
+        ctx.beginPath();
+
+
+        ctx.ellipse(
+            stemX - 18,
+            y,
+            leafSize,
+            8,
+            -0.4,
+            0,
+            Math.PI * 2
+        );
+
+
+        ctx.fill();
+
+
+        ctx.beginPath();
+
+
+        ctx.ellipse(
+            stemX + 18,
+            y - 5,
+            leafSize,
+            8,
+            0.4,
+            0,
+            Math.PI * 2
+        );
+
+
+        ctx.fill();
+
+    }
+
+
+    /*
+     * Fruto según especie
+     */
+
+    if (state.plantType === 'tomate' &&
+        state.plantHeight > 15) {
+
+        ctx.fillStyle =
+            '#ef4444';
+
+
+        ctx.beginPath();
+
+        ctx.arc(
+            stemX - 12,
+            bottom - stemHeight + 10,
+            7,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+    }
+
+
+    if (state.plantType === 'maiz' &&
+        state.plantHeight > 30) {
+
+        ctx.fillStyle =
+            '#facc15';
+
+
+        ctx.fillRect(
+            stemX + 5,
+            bottom - stemHeight + 25,
+            10,
+            25
+        );
+
+    }
+
+}
+
+
+function drawCloud(ctx, x, y) {
+
+    ctx.fillStyle =
+        'rgba(255,255,255,0.8)';
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        x,
+        y,
+        15,
+        0,
+        Math.PI * 2
+    );
+
+
+    ctx.arc(
+        x + 18,
+        y - 8,
+        20,
+        0,
+        Math.PI * 2
+    );
+
+
+    ctx.arc(
+        x + 40,
+        y,
+        15,
+        0,
+        Math.PI * 2
+    );
+
+
+    ctx.fill();
+
+}
+
+</script>
+
+</body>
+</html>

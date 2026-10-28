@@ -1,0 +1,50 @@
+#foroForm {
+    background: #f8fff8;
+    border: 1px solid #c8e6c9;
+    border-radius: 10px;
+    padding: 18px;
+    margin: 20px 0;
+}
+
+#foroForm input, #foroForm textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #c8e6c9;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font: inherit;
+    box-sizing: border-box;
+}
+
+#foroForm textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+#foroForm button {
+    background: #2e7d32;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.post {
+    background: #fff;
+    border: 1px solid #c8e6c9;
+    border-left: 4px solid #4caf50;
+    border-radius: 10px;
+    padding: 18px;
+    margin: 15px 0;
+}
+
+.post h2 {
+    margin-bottom: 4px;
+}
+
+.vacio {
+    padding: 25px;
+    text-align: center;
+    color: #777;
+}
